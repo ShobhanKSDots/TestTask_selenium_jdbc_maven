@@ -58,8 +58,8 @@ public class TestClass {
         parsePage();
         printMap();
         putResultsInTable();
-        SendMailSSL.send(System.getProperty("email_login"), System.getProperty("email_password"),
-                System.getProperty("target_email"), "rozetka_test", getResultsFromTable());
+        SendMailSSL.send(System.getenv("email_login"), System.getenv("email_password"),
+                System.getenv("target_email"), "rozetka_test", getResultsFromTable());
     }
 
     private void parsePage(){
