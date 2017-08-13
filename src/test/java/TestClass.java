@@ -1,11 +1,9 @@
-import db.DB;
+
 import db.Item;
 import db.ItemDao;
 import db.ItemDaoImpl;
 import mail.SendMailSSL;
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.testng.annotations.*;
 import pages.MainPage;
 import pages.SmartPage;
@@ -40,6 +38,7 @@ public class TestClass {
         MainPage mainPage = new MainPage();
         Action action = new Action();
         mainPage.openPage();
+        removeCaptchaIfPresent();
         action.moveToElement(MainPage.menuSmartTvElectronics);
         if (wait.elementExistsByXpath(MainPage.menuSmart)
                 && wait.elementDisplayedByXpath(MainPage.menuSmart)){
@@ -49,10 +48,13 @@ public class TestClass {
             action.commonWaitingClick(MainPage.menuSmartTvElectronics);
             action.commonWaitingClick(MainPage.menuSmart);
         }
+        removeCaptchaIfPresent();
         parsePage();
         action.commonWaitingClick(SmartPage.secondPageButton);
+        removeCaptchaIfPresent();
         parsePage();
         action.commonWaitingClick(SmartPage.thirdPageButton);
+        removeCaptchaIfPresent();
         parsePage();
         printMap();
         putResultsInTable();
@@ -103,5 +105,21 @@ public class TestClass {
             resultString.append(" \n ").append(result.get(i).getName()).append(" = ").append(result.get(i).getPrice());
         }
         return resultString.toString();
+    }
+
+    private void removeCaptchaIfPresent() {
+        WebDriver driver = WebDriverManager.getDriver();
+        Wait wait = new Wait();
+        if (wait.elementExistsByXpath("//div[child::*[@id=\"captcha\"]]")) {
+            JavascriptExecutor js = null;
+            if (driver instanceof JavascriptExecutor) {
+                js = (JavascriptExecutor) driver;
+            }
+            js.executeScript("return document.getElementById('captcha').parentElement.remove();");
+            js.executeScript("var paras = document.getElementsByClassName('protect-capcha-popup-overlay');" +
+                    "while(paras[0]) {" +
+                    "    paras[0].parentNode.removeChild(paras[0]);" +
+                    "}");
+        }
     }
 }
