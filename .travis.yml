@@ -20,4 +20,5 @@ script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start &
   - sleep 5
+  - chmod +x src/main/resources/selenium/linux/chromedriver
   - mvn test
