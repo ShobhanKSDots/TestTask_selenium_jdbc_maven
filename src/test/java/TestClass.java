@@ -36,11 +36,19 @@ public class TestClass {
 
     @Test
     public void test(){
+        Wait wait = new Wait();
         MainPage mainPage = new MainPage();
         Action action = new Action();
         mainPage.openPage();
         action.moveToElement(MainPage.menuSmartTvElectronics);
-        action.commonWaitingClick(MainPage.menuSmart);
+        if (wait.elementExistsByXpath(MainPage.menuSmart)
+                && wait.elementDisplayedByXpath(MainPage.menuSmart)){
+            action.commonWaitingClick(MainPage.menuSmart);
+        }
+        else {
+            action.commonWaitingClick(MainPage.menuSmartTvElectronics);
+            action.commonWaitingClick(MainPage.menuSmart);
+        }
         parsePage();
         action.commonWaitingClick(SmartPage.secondPageButton);
         parsePage();
