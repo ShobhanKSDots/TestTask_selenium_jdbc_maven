@@ -12,10 +12,10 @@ public class DB {
     private String password;
 
     public DB() {
-        setUrl("jdbc:mysql://localhost:3306/rozetkadb?useSSL=false&" +
+        setUrl("jdbc:mysql://127.0.0.1:3306/rozetkadb?useSSL=false&" +
                 "useUnicode=true&characterEncoding=UTF8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
         setLogin("root");
-        setPassword("parol101");
+        setPassword("");
     }
 
     public void setUrl(String url) {
