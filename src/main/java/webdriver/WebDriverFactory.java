@@ -116,7 +116,7 @@ public class WebDriverFactory {
 
 
         driver.manage().timeouts().implicitlyWait(webDriverImplicitlyWait, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+//        driver.manage().window().maximize();
 
         return driver;
     }
